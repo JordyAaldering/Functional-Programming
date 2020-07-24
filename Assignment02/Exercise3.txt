@@ -1,0 +1,29 @@
+
+Prelude> product [1..10] :: Int
+3628800
+Prelude> product [1..20] :: Int
+2432902008176640000
+Prelude> product [1..21] :: Int
+-4249290049419214848
+Prelude> product [1..65] :: Int
+-9223372036854775808
+Prelude> product [1..66] :: Int
+0
+
+Prelude> product [1..10] :: Integer
+3628800
+Prelude> product [1..20] :: Integer
+2432902008176640000
+Prelude> product [1..21] :: Integer
+51090942171709440000
+Prelude> product [1..65] :: Integer
+8247650592082470666723170306785496252186258551345437492922123134388955774976000000000000000
+Prelude> product [1..66] :: Integer
+544344939077443064003729240247842752644293064388798874532860126869671081148416000000000000000
+
+
+The values of the product when using 'Int' go below zero or to zero because 'Int' only is 32 bits long.
+So when the number is longer then 32 bits long, those other bits get lost and the number can become negative or zero.
+The type 'Integer' has a variable size so overflowing is not a problem here.
+So the value 0 is returned because all bits that were not lost are all '0'.
+

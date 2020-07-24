@@ -1,0 +1,59 @@
+
+Exercise 7.1
+Student names and numbers:
+Thomas van Harskamp, s1007576
+Jordy Aaldering, s1004292
+
+
+Exercise 7.1.1
+We need to prove that: ordered xs => ordered (insert x xs).
+Now we need to prove the base case and inductive case.
+    Base case:      xs = []
+    Inductive case: xs = y:ys
+
+Base case:
+    insert x []
+   =	{definition of insert}
+    [x]
+
+This list only contains one element, so it is sorted.
+
+Inductive case:
+Induction assumption: ordered (insert x ys) = True
+
+    insert x (y:ys)
+   =	{definition of insert}
+    if x <= y
+	x:y:ys
+       =    {x <= y and y:ys is sorted}
+	ordered (x:y:ys) = True
+    if x > y
+	y : insert x ys
+       =    {x > y and induction assumption}
+	ordered (y : insert x ys) = True
+
+
+Exercise 7.1.2
+We need to prove that: ordered (insertionSort xs) = True
+Now we need to prove the base case and inductive case.
+    Base case:      xs = []
+    Inductive case: xs = y:ys
+
+Base case:
+    insertionSort []
+   =	{definition of insertionSort}
+    []
+
+This list contains no elements, so it is sorted.
+
+Inductive case:
+Induction assumption: ordered (insertionSort xs) = True
+
+    insertionSort (x:xs)
+   =	{definition of insertionSort}
+    insert x (insertionSort xs)
+   =>   {induction assumption)
+    ordered (insertionSort xs) = True
+   =>   {proof that ordered xs => ordered (insert x xs))
+    ordered (insert x (insertionSort xs)) = True
+

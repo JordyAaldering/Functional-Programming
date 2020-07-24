@@ -1,0 +1,51 @@
+
+Exercise 9.1
+Student names and numbers:
+Thomas van Harskamp, s1007576
+Jordy Aaldering, s1004292
+
+
+Exercise 9.1.1
+Applicative order:
+    minimum [2, 7, 1, 9, 6, 5]
+  =>
+    head . insertionSort [2, 7, 1, 9, 6, 5]
+  =>
+    head . insert 2 (inserionSort [7, 1, 9, 6, 5])
+  =>
+    head . insert 2 (insert 7 (insertionSort [1, 9, 6, 5]))
+  =>
+    ...
+  =>
+    head . insert 2 [1, 5, 6, 7, 9]
+  =>
+    head (1 : insert 2 [5, 6, 7, 9])
+  =>
+    head (1 : [2, 5, 6, 7, 9])
+  =>
+    head [1, 2, 5, 6, 7, 9]
+  =>
+    1
+
+Normal order:
+    minimum [2, 7, 1, 9, 6, 5]
+  =>
+    head . insertionSort [2, 7, 1, 9, 6, 5]
+  =>
+    head . insert 2 (inserionSort [7, 1, 9, 6, 5])
+  =>
+    head . insert 2 (insert 7 (insertionSort [1, 9, 6, 5]))
+  =>
+    ...
+  =>
+    head . insert 2 [1, 5, 6, 7, 9]
+  =>
+    head (1 : insert 2 [5, 6, 7, 9])
+  =>
+    1
+
+
+Exercise 9.1.2
+The running time in a strict language is Theta(n^2).
+The running time in a lazy language, like Haskell, is O(n).
+

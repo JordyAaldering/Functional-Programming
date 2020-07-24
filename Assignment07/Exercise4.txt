@@ -1,0 +1,48 @@
+
+Exercise 7.4
+Student names and numbers:
+Thomas van Harskamp, s1007576
+Jordy Aaldering, s1004292
+
+
+Exercise 7.4.1
+    foldr (▷) e . map f
+   =	{map -> foldr}
+    foldr (▷) e . foldr (\x ys -> f x : ys) [] 
+   =	{foldr fusion}
+    foldr (\a b -> f a ▷ b) e
+
+
+Exercise 7.4.2
+    map f . map g
+   =	{map -> foldr}
+    foldr (\x ys -> f x : ys) [] . map g
+   =	{foldr fusion}
+    foldr (\a b -> (\x ys -> f x : ys) (g a) b) []
+   =	{lambda expression}
+    foldr (\a b -> f (g a) : b) []
+   =	{definition of .}
+    foldr (\a b -> (f . g) a : b) []
+   =	{foldr -> map}
+    map (f . g)
+
+
+Exercise 7.4.3
+    reduce . concat
+   =	{assume reduce = foldr (•) ε}
+    foldr (•) ε . concat
+   =	{concat -> foldr}
+    foldr (•) ε . foldr (++) []
+   =	{++ -> foldr}
+    foldr (•) ε . foldr (foldr (:)) []
+   =	{lambda expression}
+    foldr (•) ε . foldr (\a b -> foldr (:) a b) []
+   =	{foldr fusion}
+    foldr (\a b -> (foldr (•) ε) a • b) []
+   =	{assume reduce = foldr (•) ε}
+    foldr (\a b -> reduce a • b) []
+   =	{foldr-map fusion}
+    foldr (•) ε . map reduce
+   =	{assume reduce = foldr (•) ε}
+    reduce . map reduce
+

@@ -1,0 +1,65 @@
+
+Exercise 11.4
+Student names and numbers:
+Thomas van Harskamp, s1007576
+Jordy Aaldering, s1004292
+
+-- Exercise 11.4.1 --
+2a) pure id <*> v = v
+fmap p v = pure p <*> v
+2b) pure (.) * u * v * w = u * v * w
+2c) pure f * pure v = pure (f v)
+2d) u * pure x = pure (\f -> f x) * u
+3) pure f * u * pure x = pure (flip f) pure x <*> u
+
+1a) To prove:
+fmap id = id
+
+fmap id v
+ = pure id * v
+(a)= v = id v
+
+
+1b) To prove:
+fmap (f.g) = (fmap f) . (fmap g)
+
+fmap (f.g) v
+ = pure (f.g) * v
+ = pure (((.) f) g) * v
+(c)= pure ((.) f) * pure g * v
+(c)= pure (.) * pure f * pure g * v
+(b)= pure f * (pure g * v)
+ = fmap f (fmap g v)
+
+
+-- Exercise 11.4.2 --
+To prove:
+(2d) => (3)
+
+pure f * u * pure x
+(d)= pure f * pure (\g -> g x) * u
+(c)= pure (f (\g -> g x)) * u
+ = pure ((flip f) x) * u
+(c)= pure (flip f) * pure x * u
+
+(
+f(\g -> g x) y
+ = f y x
+ = (flip f x) y
+)
+
+
+To prove:
+(3) => (2d)
+
+u * pure x
+ = pure id * u * pure x
+(e)= pure (flip id) * pure x * u
+(c)= pure (flip id x) * u
+ = pure (\g -> g x) * u
+
+(
+flip id :: a -> (a -> b) -> b
+(flip id) x f = f x = (\g -> g x) f
+)
+

@@ -1,0 +1,42 @@
+
+-- 2.5.1
+Well-formed and well-typed:
+(+4)
+div
+div 7
+(div 7) 4
+7 `div` 4
+(+) 3 7
+(b, 'b', "b")
+abs . negate
+(*3) . (+3)
+
+
+-- 2.5.2
+Both are Well-formed and well-typed:
+(abs.).(.negate)
+(div.).(.mod)
+
+
+-- 2.5.3
+i x = x
+x can be any variable or function (that takes no input) in this case.
+    i :: x -> x
+
+k (x, y) = x
+x and y can both be any variable or function (that takes no input), they can also be different because y is ignored anyway.
+    k :: (x, y) -> x
+    k (x, _) = x
+
+b (x, y, z) = (x z) y
+x is a function that takes z as an argument. And x then gives a function that uses y as an argument.
+    b :: y -> (z -> x)
+
+c (x, y, z) = x (y z)
+y is a function that takes z as an argument. The function x then uses the outcome of (y z).
+    c :: (z -> y) -> x
+
+s (x, y, z) = (x z) (y z)
+x is a function that takes z as an argument. And y is a function that takes z as an argument. x then outputs a function that uses the outcome of (y z) as an argument.
+    s :: (z -> y) -> (z -> x)
+
